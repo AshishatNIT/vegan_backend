@@ -17,6 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+# Make sure to import 'include'
+from django.urls import path, include
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # ✅ ADD THIS LINE:
+    # This tells Django that any URL starting with "api/products/" should be
+    # handled by the urls.py file inside our 'products' app.
+    path('api/products/', include('products.urls')),
 ]
