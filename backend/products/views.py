@@ -13,7 +13,8 @@ def product_list_api(request):
         'product_link', 
         'description',
         'image_url', 
-        'price'
+        'price',
+        'vendor',
     )
     
     # We convert the database query result (a QuerySet) into a list and return it as JSON.
