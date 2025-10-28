@@ -1,3 +1,8 @@
+
+import os
+from dotenv import load_dotenv
+load_dotenv() # This loads your .env file
+
 """
 Django settings for config project.
 
@@ -135,3 +140,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # ]
 
 CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS', '').split(' ')
+
+if DEBUG:
+    # In development, just allow local origins
+    CORS_ALLOWED_ORIGINS = [
+        "null", # Allows file://
+        "http://127.0.0.1:8000",
+    ]
+else:
+    # In production, read from the environment variable
+    CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS', '').split(' ')
