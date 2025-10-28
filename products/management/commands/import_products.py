@@ -8,7 +8,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         # The path to your new, clean, master CSV file.
         # This assumes it's in a 'data' folder at the project root.
-        master_csv_path = '../data/all_vegan_products.csv'
+        master_csv_path = '../data/all_vegan_products_with_vendor.csv'
         
         self.stdout.write(self.style.SUCCESS('Starting import from master CSV...'))
 
@@ -27,6 +27,7 @@ class Command(BaseCommand):
                         # This assumes you have a 'vegan_status' column, defaults to PENDING otherwise
                         # 'vegan_status': row.get('Vegan Status', 'PENDING'),
                         'product_link': row.get('Product URL'),
+                        'vendor': row.get('Vendor'),
                     }
                 )
 
