@@ -1,8 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
     const productContainer = document.getElementById('product-container');
     const loadingMessage = document.getElementById('loading-message');
+    const vendorFilterMessage = document.getElementById('vendor-filter-message');
     // The URL for your running Django API server
-    const apiUrl = 'http://127.0.0.1:8000/api/products/';
+    const apiUrl = 'https://vegan-backend-1zi7.onrender.com/api/products/';
+
+    // Helper to get vendor from query string
+    function getVendorFromQuery() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('vendor');
+    }
 
     fetch(apiUrl)
         .then(response => {
@@ -14,12 +21,26 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(products => {
             loadingMessage.style.display = 'none'; // Hide the loading message
 
-            if (products.length === 0) {
+            const vendor = getVendorFromQuery();
+            let filteredProducts = products;
+            if (vendor) {
+                filteredProducts = products.filter(product => {
+                    // Case-insensitive match for vendor
+                    return product.vendor && product.vendor.toLowerCase() === vendor.toLowerCase();
+                });
+                vendorFilterMessage.style.display = 'block';
+                vendorFilterMessage.textContent = `Showing products for vendor: ${vendor}`;
+            } else {
+                vendorFilterMessage.style.display = 'none';
+            }
+
+            if (filteredProducts.length === 0) {
                 productContainer.innerHTML = '<p>No products found.</p>';
                 return;
             }
 
-            products.forEach(product => {
+            productContainer.innerHTML = '';
+            filteredProducts.forEach(product => {
                 const card = document.createElement('div');
                 card.className = 'product-card';
 
