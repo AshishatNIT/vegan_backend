@@ -9,7 +9,7 @@ class Command(BaseCommand):
     help = 'Imports products from the master CSV file into the database.'
 
     def handle(self, *args, **options):
-        master_csv_path = '../data/big_basket.csv'
+        master_csv_path = 'data/big_basket.csv'
         
         self.stdout.write(self.style.SUCCESS('Starting import from master CSV...'))
         
