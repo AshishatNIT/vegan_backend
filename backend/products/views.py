@@ -15,6 +15,8 @@ def product_list_api(request):
         'image_url', 
         'price',
         'vendor',
+        'vegan_status',
+        'category'
     )
     
     # We convert the database query result (a QuerySet) into a list and return it as JSON.
