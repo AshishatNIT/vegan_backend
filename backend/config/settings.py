@@ -87,7 +87,8 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.parse('postgresql://dev:Iw4nUrpnjd80nkDJbYI48eCf8Uyfpjg5@dpg-d3l3imc9c44c7391vtdg-a.oregon-postgres.render.com/dev_products')
+    # 'default': dj_database_url.parse('postgresql://dev:Iw4nUrpnjd80nkDJbYI48eCf8Uyfpjg5@dpg-d3l3imc9c44c7391vtdg-a.oregon-postgres.render.com/dev_products')
+    'default': dj_database_url.parse('postgresql://dev_veganos_v2_user:Zr0O3FYNGzIrkWNeAhcMq5rUFXqcqF1o@dpg-d4ct4iggjchc73dkfhlg-a.oregon-postgres.render.com/dev_veganos_v2')
 }
 
 
