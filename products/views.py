@@ -11,7 +11,7 @@ def product_list_api(request):
     products = Product.objects.all().values(
         'name', 
         'product_link', 
-        'description',
+        # 'description',
         'image_url', 
         'price',
         'vendor',

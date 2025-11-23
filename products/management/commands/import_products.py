@@ -9,7 +9,7 @@ class Command(BaseCommand):
     help = 'Imports products from the master CSV file into the database.'
 
     def handle(self, *args, **options):
-        master_csv_path = 'data/big_basket.csv'
+        master_csv_path = 'data/data_cleaned_no_description.csv'
         
         self.stdout.write(self.style.SUCCESS('Starting import from master CSV...'))
         
@@ -32,7 +32,7 @@ class Command(BaseCommand):
                 data_buffer.write('\t'.join([
                     product_url,
                     row.get('clean_Product_Name', '').strip(),
-                    row.get('clean_Product_Description', '').strip(),
+                    # row.get('clean_Product_Description', '').strip(),
                     row.get('Product_Image', '').strip(),
                     row.get('Vegan', 'PENDING').strip(),
                     row.get('Vendor', '').strip(),
@@ -47,7 +47,7 @@ class Command(BaseCommand):
             cursor.copy_from(
                 data_buffer,
                 'products_product',
-                columns=('product_link', 'name', 'description', 'image_url', 
+                columns=('product_link', 'name', 'image_url', 
                         'vegan_status', 'vendor', 'category'),
                 null=''
             )
