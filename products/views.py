@@ -24,6 +24,7 @@ def product_list_api(request):
     # 2. Filtering Logic: Apply filters BEFORE slicing the page
     vendor = request.GET.get('vendor')
     category = request.GET.get('category')
+    status = request.GET.get('status')  # New filter for vegan_status
 
     if vendor:
         # Case-insensitive match
@@ -32,6 +33,9 @@ def product_list_api(request):
     if category:
         # Case-insensitive match
         products_queryset = products_queryset.filter(category__iexact=category)
+
+    if status: 
+        products_queryset = products_queryset.filter(vegan_status__iexact=status)
 
     # 3. Select only the fields we need (Optimization)
     data = products_queryset.values(
