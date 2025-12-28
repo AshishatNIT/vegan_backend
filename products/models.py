@@ -39,3 +39,25 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+# --- NEW: Product Import Model for Admin Dashboard ---
+class ProductImport(models.Model):
+    # This stores the actual CSV file
+    csv_file = models.FileField(upload_to='product_imports/')
+    
+    # Keeps track of when you uploaded it
+    date_added = models.DateTimeField(auto_now_add=True)
+    
+    # Shows if it worked or failed
+    STATUS_CHOICES = [
+        ('PENDING', 'Pending'),
+        ('SUCCESS', 'Success'),
+        ('FAILED', 'Failed'),
+    ]
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='PENDING')
+    
+    # Stores the success message or the specific error (e.g., "Missing column 'price'")
+    log_message = models.TextField(blank=True)
+
+    def __str__(self):
+        return f"Import on {self.date_added.strftime('%Y-%m-%d %H:%M')}"
