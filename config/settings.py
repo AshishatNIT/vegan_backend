@@ -91,7 +91,17 @@ DATABASES = {
     # 'default': dj_database_url.parse('postgresql://dev:Iw4nUrpnjd80nkDJbYI48eCf8Uyfpjg5@dpg-d3l3imc9c44c7391vtdg-a.oregon-postgres.render.com/dev_products')
     # 'default': dj_database_url.parse('postgresql://dev_veganos_v2_user:Zr0O3FYNGzIrkWNeAhcMq5rUFXqcqF1o@dpg-d4ct4iggjchc73dkfhlg-a.oregon-postgres.render.com/dev_veganos_v2')
     # 'default': dj_database_url.parse('postgresql://dev_veganos_v3_user:wFpa1ItaqKyuDxqLc8FKYsTxwRuB8SvV@dpg-d51b9hili9vc73b11o90-a.oregon-postgres.render.com/dev_veganos_v3')
-    'default': dj_database_url.parse('postgresql://admin:7uwhrlQ0rAzlDsODp0hNUBRRJn6KWLxB@dpg-d5chap3uibrs73eb0km0-a.oregon-postgres.render.com/vegan_db')
+    # 'default': dj_database_url.parse('postgresql://admin:7uwhrlQ0rAzlDsODp0hNUBRRJn6KWLxB@dpg-d5chap3uibrs73eb0km0-a.oregon-postgres.render.com/vegan_db')
+    'default': dj_database_url.config(
+        # 1. Look for DATABASE_URL in environment
+        default=os.environ.get('DATABASE_URL'),
+        
+        # 2. Keep connection alive for speed (good for Render)
+        conn_max_age=600,
+        
+        # 3. Ensure SSL is used on the server
+        ssl_require=True
+    )
 }
 
 
